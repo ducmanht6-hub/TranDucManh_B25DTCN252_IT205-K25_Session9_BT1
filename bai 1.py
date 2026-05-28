@@ -1,126 +1,54 @@
-cart_items = [
-         ["P001", "Dien thoai iPhone 15", 1, 25000000],
-         ["P002", "Op lung Silicon", 2, 150000]
-]
+# code đề bài
+""" # Danh sách đơn hàng ban đầu
+delivery_orders = ["GE001", "GE002", "GE003-CANCEL"]
 
-while True:
-    print("\n===============================================")
-    print("         SHOPEE CART MANAGEMENT SYSTEM         ")
-    print("===============================================")
-    print("1. Xem chi tiết giỏ hàng và tính tổng tiền     ")
-    print("2. Thêm sản phẩm mới / Cộng dồn số lượng       ")
-    print("3. Cập nhật số lượng của một sản phẩm          ")
-    print("4. Xóa sản phẩm khỏi giỏ hàng                  ")
-    print("5. Thoát chương trình                          ")
-    print("===============================================")
+# Thêm đơn hàng mới vào cuối danh sách
+delivery_orders.append("GE004")
 
-    choice = input("Mời bạn chọn chức năng (1-5): ")
+# Chèn đơn hàng hỏa tốc vào đầu danh sách
+delivery_orders.insert(0, "GE000")
 
-    choice = int(choice)
+# Sửa mã đơn hàng GE002 thành GE002-UPDATED
+delivery_orders[1] = "GE002-UPDATED"
 
-    if choice == 1:
+# Xóa đơn hàng bị khách hủy
+delivery_orders.remove(3)
 
-        total = 0
-        total_quantity = 0
+# Lấy đơn hàng cuối cùng ra để bàn giao cho tài xế khác
+delivery_orders.pop()
 
-        print("--- CHI TIẾT GIỎ HÀNG ---")
+print("Danh sách đơn hàng còn lại:", delivery_orders)
+print("Đơn hàng được bàn giao:", transferred_order)
+ """
+# code sai các phần sau
+""" 
+Sau khi chạy dòng lệnh nó sẽ thêm dữ liệu vào phần tử index = 0
+delivery_orders.insert(0, "GE000")
 
-        print(f"{'STT':<5} | {'Mã SP':<8} | {'Tên sản phẩm':<25} | {'SL':<3} | {'Đơn giá':<10} | {'Thành tiền':<12}")
-        print("------------------------------------------------------------------------")
+delivery_orders[1] = "GE002-UPDATED"
+Sau khi chèn "GE000" vào đầu danh sách, vị trí các phần tử đã thay đổi, lúc này "GE002" đang ở vị trí index = 2
 
-        for i, item in enumerate(cart_items, start=1):
+delivery_orders.remove(3) gây lỗi vì remove() nhận xóa gía trị, không phải index
 
-            product_id = item[0]
-            product_name = item[1]
-            quantity = item[2]
-            price = item[3]
+pop() để xóa phần tử cuối của list
 
-            subtotal = quantity * price
+transferred_order chưa khởi tạo nên sinh ra lỗi chưa hiển thị
+Muốn lưu đơn hàng vừa lấy ra bằng pop() cần viết:
+transferred_order = delivery_orders.pop()
+"""
 
-            total += subtotal
-            total_quantity += quantity
+# code sửa
+delivery_orders = ["GE001", "GE002", "GE003-CANCEL"]
 
-            print(f"{i:<5} | {product_id:<8} | {product_name:<25} | {quantity:<3} | {price:<10} | {subtotal:<12}")
+delivery_orders.append("GE004")
 
-        print(f"Tổng số lượng sản phẩm trong giỏ: {total_quantity}")
-        print(f"TỔNG TIỀN THANH TOÁN: {total:,} đ")
+delivery_orders.insert(0, "GE000")
 
-    elif choice == 2:
+delivery_orders[2] = "GE002-UPDATED"
 
-        updated = False
+delivery_orders.remove("GE003-CANCEL")
 
-        product_id = input("Nhập mã sản phẩm: ")
+transferred_order = delivery_orders.pop()
 
-        for item in cart_items:
-
-            if product_id == item[0]:
-
-                print(f"Đang cộng dồn số lượng sản phẩm {product_id}")
-
-                # INPUT: Số lượng muốn cộng thêm
-                # OUTPUT: Cập nhật số lượng sản phẩm
-                quantity = int(input("Nhập số lượng: "))
-
-                item[2] += quantity
-
-                updated = True
-
-                print(f"Cộng dồn sản phẩm {product_id} thành công")
-
-                break
-
-        else:
-
-            product_name = input("Nhập tên sản phẩm: ")
-
-            quantity = int(input("Nhập số lượng: "))
-
-            price = int(input("Nhập đơn giá: "))
-
-        if not updated:
-
-            cart_items.append([product_id, product_name, quantity, price])
-
-            print("Thêm sản phẩm thành công!")
-
-    elif choice == 3:
-
-        product_id = input("Nhập mã sản phẩm muốn thay đổi: ")
-
-        for item in cart_items:
-
-            if product_id == item[0]:
-
-                new_quantity = int(input("Nhập số lượng mới cần thay đổi: "))
-
-                item[2] = new_quantity
-
-                print("Cập nhật số lượng thành công!")
-
-                break
-
-        else:
-            print(f"Không tìm thấy mã {product_id}")
-
-    elif choice == 4:
-
-        product_id = input("Nhập mã sản phẩm muốn xóa: ")
-
-        for item in cart_items:
-
-            if product_id == item[0]:
-
-                cart_items.remove(item)
-
-                print(f"Đã xóa sản phẩm có mã {product_id} khỏi giỏ hàng.")
-
-                break
-
-        else:
-            print(f"Không tìm thấy mã {product_id} trong giỏ hàng.")
-
-    else:
-
-        print("Thoát chương trình!")
-
-        break
+print("Danh sách đơn hàng còn lại:", delivery_orders)
+print("Đơn hàng được bàn giao:", transferred_order)
